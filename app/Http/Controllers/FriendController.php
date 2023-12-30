@@ -11,11 +11,17 @@ class FriendController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, string $user_id)
     {
-        //
+        $friends = Friend::where("user_id", $user_id)
+        ->distinct('friend_id')
+        ->join('users', 'friends.friend_id', '=', 'users.id')
+        ->select('friend_id as id','users.name','users.email')
+        ->get();
+        return response()->json(array("friends" => $friends));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      */
