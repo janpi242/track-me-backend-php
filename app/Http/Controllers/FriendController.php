@@ -14,14 +14,14 @@ class FriendController extends Controller
     public function index(Request $request, string $user_id)
     {
         $friends = Friend::where("user_id", $user_id)
-        ->distinct('friend_id')
-        ->join('users', 'friends.friend_id', '=', 'users.id')
-        ->select('friend_id as id','users.name','users.email')
-        ->get();
+            ->distinct('friend_id')
+            ->join('users', 'friends.friend_id', '=', 'users.id')
+            ->select('friend_id as id', 'users.name', 'users.email')
+            ->get();
         return response()->json(array("friends" => $friends));
     }
 
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -35,19 +35,21 @@ class FriendController extends Controller
      */
     public function store(Request $request)
     {
-        $friend = new Friend;
-        $friend->user_id = $request["myId"];
-        $friend_found = User::firstWhere('email', $request["friendsEmail"], ['email']);
+        $friend_found = User::firstWhere('email', $request["friendsEmail"]);
 
-        // TODO: not found
         if (empty($friend_found)) {
-            return response()->json(array(
-                'code' => 400,
-                'message' => 'No such user'
-            ), 400);
+            return response()->json(
+                array(
+                    'code' => 400,
+                    'message' => 'No such user'
+                ),
+                400
+            );
         } else {
-            $friend->friend_id = $friend_found['id'];
-            $friend->save();
+            $friend = Friend::firstOrCreate(
+                ['user_id' => $request["myId"], 'friend_id' => $friend_found['id']]
+            );
+
             return response()->json($friend);
         }
     }
