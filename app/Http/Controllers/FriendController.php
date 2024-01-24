@@ -18,6 +18,7 @@ class FriendController extends Controller
             ->join('users', 'friends.friend_id', '=', 'users.id')
             ->select('friend_id as id', 'users.name', 'users.email')
             ->get();
+
         return response()->json(array("friends" => $friends));
     }
 

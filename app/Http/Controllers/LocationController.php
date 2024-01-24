@@ -10,9 +10,11 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, string $user_id)
     {
-        //
+        $locations = Location::where("user_id", $user_id)->orderBy('timestamp', 'desc')->first();
+
+        return response()->json($locations);
     }
 
     /**
