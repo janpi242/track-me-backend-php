@@ -4,7 +4,7 @@ use App\Http\Controllers\FriendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PositionController;
 
 
 /*
@@ -26,8 +26,8 @@ Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth')->post('location', [LocationController::class, 'store']);
-Route::middleware('auth')->get('locations/{user_id}', [LocationController::class, 'index']);
+Route::middleware('auth')->post('position', [PositionController::class, 'store']);
+Route::middleware('auth')->get('position/{user_id}', [PositionController::class, 'index']);
 Route::middleware('auth')->post('friend', [FriendController::class, 'store']);
 Route::middleware('auth')->get('friends/{user_id}', [FriendController::class, 'index']);
 

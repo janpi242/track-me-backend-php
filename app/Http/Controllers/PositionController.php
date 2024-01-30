@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
+use App\Models\Position;
 use Illuminate\Http\Request;
 
-class LocationController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request, string $user_id)
     {
-        $locations = Location::where("user_id", $user_id)->orderBy('timestamp', 'desc')->first();
+        $positions = Position::where("user_id", $user_id)->orderBy('timestamp', 'desc')->first();
 
-        return response()->json($locations);
+        return response()->json($positions);
     }
 
     /**
@@ -30,19 +30,19 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $location = new Location;
-        $location->user_id = $request["userId"];
-        $location->longitude = $request["longitude"];
-        $location->latitude = $request["latitude"];
-        $location->timestamp = date("Y-m-d H:i:s", $request["timestamp"]/1000);
-        $location->save();
-        return response()->json($location);
+        $position = new Position;
+        $position->user_id = $request["userId"];
+        $position->longitude = $request["longitude"];
+        $position->latitude = $request["latitude"];
+        $position->timestamp = date("Y-m-d H:i:s", $request["timestamp"]/1000);
+        $position->save();
+        return response()->json($position);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Location $location)
+    public function show(Position $position)
     {
         //
     }
@@ -50,7 +50,7 @@ class LocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Location $location)
+    public function edit(Position $position)
     {
         //
     }
@@ -58,7 +58,7 @@ class LocationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, Position $position)
     {
         //
     }
@@ -66,7 +66,7 @@ class LocationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Location $location)
+    public function destroy(Position $position)
     {
         //
     }

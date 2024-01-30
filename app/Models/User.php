@@ -64,8 +64,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function locations() {
-        return $this->hasMany(Location::class);
+    public function positions() {
+        return $this->hasMany(Position::class);
     }
 
     public function friends(): HasMany {
