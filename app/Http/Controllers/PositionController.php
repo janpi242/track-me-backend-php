@@ -17,6 +17,25 @@ class PositionController extends Controller
         return response()->json($positions);
     }
 
+    public function index2(Request $request)    
+    {
+        $ids = request('ids');
+        if(!$ids) {
+            return response()->json([]);
+        }
+        
+        $ids = explode(',',$ids);
+        
+        $result = [];
+        
+        foreach ($ids as &$id) {
+            $position = Position::where("user_id", $id)->orderBy('timestamp', 'desc')->first();
+            (!is_null($position)) ? ($result[] = $position) : "";
+        }
+
+        return response()->json($result);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

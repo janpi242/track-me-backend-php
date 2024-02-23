@@ -28,6 +28,7 @@ Route::middleware('auth')->get('/user', function (Request $request) {
 
 Route::middleware('auth')->post('position', [PositionController::class, 'store']);
 Route::middleware('auth')->get('position/{user_id}', [PositionController::class, 'index']);
+Route::middleware('auth')->get('positions', [PositionController::class, 'index2']);
 Route::middleware('auth')->post('friend', [FriendController::class, 'store']);
 Route::middleware('auth')->get('friends/{user_id}', [FriendController::class, 'index']);
 
